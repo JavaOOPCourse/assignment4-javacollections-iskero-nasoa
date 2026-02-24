@@ -10,11 +10,16 @@ public class Main {
         IssueService issueService = new IssueService();
         ActionHistoryService actionService = new ActionHistoryService();
 
+        studentService.initializeStudents();
+        appointmentService.initializeAppointments();
+        issueService.initializeIssues();
+        actionService.initializeActions();
+
         Scanner scanner = new Scanner(System.in);
         int choice;
 
         do {
-            System.out.println("===== 🎓 Smart University Service System =====");
+            System.out.println("\n===== 🎓 Smart University Service System =====");
             System.out.println("1. Show Students");
             System.out.println("2. Show Appointments");
             System.out.println("3. Show Emergency Issues");
@@ -25,25 +30,39 @@ public class Main {
             System.out.print("Choose option: ");
 
             choice = scanner.nextInt();
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
-                    // TODO
+                    studentService.removeLowGPA();
+                    studentService.insertAtIndex();
+                    studentService.findHighestGPA();
+                    studentService.printStudents();
                     break;
                 case 2:
-                    // TODO
+                    appointmentService.cancelLast();
+                    appointmentService.showFirstAndLast();
+                    appointmentService.printAppointments();
                     break;
                 case 3:
-                    // TODO
+                    issueService.showMostUrgent();
+                    issueService.resolveIssues();
+                    issueService.printRemainingIssues();
                     break;
                 case 4:
-                    // TODO
+                    actionService.addRequestedTranscript();
+                    actionService.showFirstAndLast();
+                    actionService.printHistory();
                     break;
                 case 5:
-                    // TODO
+                    System.out.print("Enter issue description: ");
+                    String desc = scanner.nextLine();
+                    System.out.print("Enter urgency (1-5): ");
+                    int urg = scanner.nextInt();
+                    issueService.addNewIssue(desc, urg);
                     break;
                 case 6:
-                    // TODO
+                    actionService.undoLastAction();
                     break;
                 case 7:
                     System.out.println("Exiting... 👋");
